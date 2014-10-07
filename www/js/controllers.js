@@ -1,6 +1,15 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('BookingCtrl', function($scope, SiteData) {
+
+  SiteData.load().success(function(data){
+      $scope.companies = data.Zonas[0].Empresas;
+  });
+
+  $scope.book = function(){
+    //Bookings.create();
+  };
+
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {
@@ -11,5 +20,14 @@ angular.module('starter.controllers', [])
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope, $localstorage) {
+
+  $scope.user = $localstorage.getObject("user");
+
+  $scope.save = function(){
+
+    $localstorage.setObject("user", $scope.user);
+
+  };
+
 });

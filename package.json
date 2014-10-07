@@ -1,7 +1,7 @@
 {
   "name": "calc",
   "version": "1.0.0",
-  "description": "calc: An Ionic project",
+  "description": "Combis A La Carta",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

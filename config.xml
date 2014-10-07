@@ -2,11 +2,11 @@
 <widget id="com.ionicframework.calc723195" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>calc</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
-    </author>
+        Combis A La Carta
+  </description>
+  <author email="info@combisalacarta.com" href="http://combisalacarta.com/">
+      Combis A La Carta Team
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>

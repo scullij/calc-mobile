@@ -1,5 +1,29 @@
-<ion-view title="Account">
+<ion-view title="Usuario">
   <ion-content class="padding">
-    <h1>Account</h1>
+    <h1>Datos personales:</h1>
+
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nombre</span>
+        <input type="text" ng-model="user.firstName" placeholder="">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Apellido</span>
+        <input type="text" ng-model="user.lastName" placeholder="">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="text" ng-model="user.email" placeholder="">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Telefono</span>
+        <input type="text" ng-model="user.telephone" placeholder="">
+      </label>
+    </div>
+
+    <button on-touch="save()" class="button button-block button-positive">
+      Guardar
+    </button>
+
   </ion-content>
 </ion-view>
