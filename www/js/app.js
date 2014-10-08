@@ -7,7 +7,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic.utils'])
 
-.run(function($ionicPlatform, SiteData) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,10 +19,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $rootScope.$on('loading:show', function() {
+      //$ionicLoading.show({template: 'Cargando'})
+    })
+
+    $rootScope.$on('loading:hide', function() {
+      $ionicLoading.hide()
+    })
+
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  $httpProvider.interceptors.push(function($rootScope) {
+    return {
+      request: function(config) {
+        //console.log("REQUEST:" + JSON.stringify(config));
+        $rootScope.$broadcast('loading:show')
+        return config
+      },
+      response: function(response) {
+        //console.log("RESPONSE:" + JSON.stringify(response));
+        $rootScope.$broadcast('loading:hide')
+        return response
+      }
+    }
+  });
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -48,12 +73,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
-    .state('tab.friends', {
-      url: '/friends',
+    .state('tab.history', {
+      url: '/history',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+        'tab-hisotry': {
+          templateUrl: 'templates/tab-history.html',
+          controller: 'HistoryCtrl'
         }
       }
     })

@@ -1,50 +1,43 @@
+SERVICES_PATH = "http://localhost:3000";
+
 angular.module('starter.services', [])
-
-/**
- * A simple example service that returns some data.
- */
-.factory('Friends', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var friends = [
-    { id: 0, name: 'Scruff McGruff' },
-    { id: 1, name: 'G.I. Joe' },
-    { id: 2, name: 'Miss Frizzle' },
-    { id: 3, name: 'Ash Ketchum' }
-  ];
-
-  return {
-    all: function() {
-      return friends;
-    },
-    get: function(friendId) {
-      // Simple index lookup
-      return friends[friendId];
-    }
-  }
-})
-
-.factory('Companies', function() {
-
-  var companies = [
-    { id: 0, name: 'Test1' },
-    { id: 1, name: 'test2' }
-  ];
-
-  return {
-    all: function() {
-      return companies;
-    }
-  }
-})
 
 .factory('SiteData', function($http){
 
   return {
 
     load: function(){
-      return $http({method: 'GET', url: 'http://localhost:3000/sitio.data'});
+      return $http({method: 'GET', url: SERVICES_PATH + '/sitio.data'});
+    }
+  }
+
+})
+
+.factory('Booking', function($http, $localstorage){
+
+  return {
+
+    book: function( book ){
+
+      //(req.body.type != "create" && req.body.type != "modify" && req.body.type != "cancel") ||
+      var user = $localstorage.getObject("user");
+
+      var data = {
+  			type: book.type,
+        empresa: book.company.NombreParam,
+        ramal: book.branch.Descripcion,
+        recorrido: book.way,
+        parada: book.stop,
+        dia: book.day,
+        horario: book.hour,
+        nombre: user.name,
+        email: user.email,
+  			telefono: user.telephone
+      };
+
+      console.log(JSON.stringify(data));
+
+      return $http.post(SERVICES_PATH + '/' + book.company.NombreParam + "/reservar", data);
     }
   }
 

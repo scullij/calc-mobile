@@ -6,69 +6,35 @@
 
       <label class="item item-input item-select">
         <div class="input-label">Empresa</div>
-        <select ng-model="company" ng-options="company as company.Nombre for company in companies"></select>
+        <select ng-model="book.company" ng-options="company as company.Nombre for company in companies"></select>
       </label>
 
       <label class="item item-input item-select">
         <div class="input-label">Ramal</div>
-        <select ng-model="branch" ng-options="branch as branch.Descripcion for branch in company.Recorridos"></select>
+        <select ng-model="book.branch" ng-options="branch as branch.Descripcion for branch in book.company.Recorridos"></select>
       </label>
 
-      <ion-radio ng-repeat="item in ['Ida', 'Vuelta']"
-                 ng-value="1"
-                 ng-model="way">
-                 {{item}}
-      </ion-radio>
+      <label class="item item-input item-select">
+        <div class="input-label">Sentido</div>
+        <select ng-model="book.way" ng-options="way for way in ['Ida', 'Vuelta']"></select>
+      </label>
 
-      {{ way }}!!
-
-      <!-- <div class="row">
-        <div class="col col-50">
-          <label class="item item-radio">
-            <input ng-model="data.way" ng-value="Ida" type="radio" name="group">
-            <div class="item-content">Ida</div>
-            <i class="radio-icon ion-checkmark"></i>
-          </label>
-        </div>
-        <div class="col col-50">
-          <label class="item item-radio">
-            <input ng-model="data.way" ng-value="Vuelta" type="radio" name="group">
-            <div class="item-content">Vuelta</div>
-            <i class="radio-icon ion-checkmark"></i>
-          </label>
-        </div>
-      </div>
-
-      {{data}}!!! -->
-
-      <div class="row">
-        <div class="col col-50">
-          <label class="item item-radio">
-            <input type="radio" name="group">
-            <div class="item-content">Hoy</div>
-            <i class="radio-icon ion-checkmark"></i>
-          </label>
-        </div>
-        <div class="col col-50">
-          <label class="item item-radio">
-            <input type="radio" name="group">
-            <div class="item-content">Mañana</div>
-            <i class="radio-icon ion-checkmark"></i>
-          </label>
-        </div>
-      </div>
+      <label class="item item-input item-select">
+        <div class="input-label">Día</div>
+        <select ng-model="book.day" ng-options="day for day in ['Hoy', 'Mañana']"></select>
+      </label>
 
       <label class="item item-input item-select">
         <div class="input-label">Parada</div>
-        <select ng-model="company" ng-options="stop[2] as stop[2] for stop in branch[way].Paradas"></select>
+        <select ng-model="book.stop" ng-options="stop[2] as stop[2] for stop in book.branch[book.way].Paradas"></select>
       </label>
 
       <label class="item item-input item-select">
         <div class="input-label">Horario</div>
-        <select ng-model="company" ng-options="company.name as company.name for company in companies"></select>
+        <select ng-model="book.hour" ng-options="hour for hour in book.branch[book.way].Horarios"></select>
       </label>
 
-      <button on-touch="book()" class="button button-block button-positive">
+      <button on-touch="create()" class="button button-block button-positive">
         Reservar!
       </button>
 
