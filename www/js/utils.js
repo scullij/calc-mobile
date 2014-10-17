@@ -27,6 +27,30 @@ angular.module('ionic.utils', [])
         arr.push( JSON.parse( val[i] ) );
       }
       return arr;
+    },
+    find : function(key, value){
+      var arr = this.getArray(key);
+      return _.find(arr, function(book){ return book.id == value; });
     }
   }
-}]);
+}])
+
+.factory('Popup', function( $ionicPopup, $state ) {
+  return {
+    show : function(title, template, url){
+
+      $ionicPopup.alert({
+        title: title,
+        template: template
+      }).then(function(res) {
+        $state.go(url);
+      });
+
+    },
+
+    booking : function(){
+      this.show('Reserva Generada!', 'Podes seguir el estado de tus reserva en la pestaña historial!', 'tab.history');
+    }
+
+  }
+});

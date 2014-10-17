@@ -14,15 +14,39 @@
         <select ng-model="book.branch" ng-options="branch as branch.Descripcion for branch in book.company.Recorridos"></select>
       </label>
 
-      <label class="item item-input item-select">
-        <div class="input-label">Sentido</div>
-        <select ng-model="book.way" ng-options="way for way in ['Ida', 'Vuelta']"></select>
-      </label>
+      <div class="row" style="padding:0px;">
+        <div class="col" style="padding:0px;">
+          <label class="item item-radio">
+            <input type="radio" name="way" ng-model="book.way" value="Ida">
+            <div class="item-content">Ida</div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+        </div>
+        <div class="col" style="padding:0px;">
+          <label class="item item-radio">
+            <input type="radio" name="way" ng-model="book.way" value="Vuelta">
+            <div class="item-content">Vuelta</div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+        </div>
+      </div>
 
-      <label class="item item-input item-select">
-        <div class="input-label">Día</div>
-        <select ng-model="book.day" ng-options="day for day in ['Hoy', 'Mañana']"></select>
-      </label>
+      <div class="row" style="padding:0px;">
+        <div class="col" style="padding:0px;">
+          <label class="item item-radio">
+            <input type="radio" name="day" ng-model="book.day" value="Hoy">
+            <div class="item-content">Hoy</div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+        </div>
+        <div class="col" style="padding:0px;">
+          <label class="item item-radio">
+            <input type="radio" name="day" ng-model="book.day" value="Mañana">
+            <div class="item-content">Mañana</div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+        </div>
+      </div>
 
       <label class="item item-input item-select">
         <div class="input-label">Parada</div>
@@ -34,9 +58,8 @@
         <select ng-model="book.hour" ng-options="hour for hour in book.branch[book.way].Horarios"></select>
       </label>
 
-      <button on-touch="create()" class="button button-block button-positive">
-        Reservar!
-      </button>
+      <button ng-show="!book.id" on-touch="create()" class="button button-block button-positive">Reservar!</button>
+      <button ng-show="book.id" on-touch="cancel()" class="button button-block button-assertive">Cancelar</button>
 
     </div>
 

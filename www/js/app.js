@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic.utils'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, User) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -22,11 +22,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     $rootScope.$on('loading:show', function() {
       //$ionicLoading.show({template: 'Cargando'})
-    })
+    });
 
     $rootScope.$on('loading:hide', function() {
-      $ionicLoading.hide()
-    })
+      //$ionicLoading.hide()
+    });
 
   });
 })
@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // Each tab has its own nav history stack:
 
     .state('tab.booking', {
-      url: '/booking',
+      url: '/booking/:id',
       views: {
         'tab-booking': {
           templateUrl: 'templates/tab-booking.html',
@@ -103,6 +103,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/booking');
+  $urlRouterProvider.otherwise('/tab/booking/');
 
 });

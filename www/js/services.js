@@ -13,17 +13,17 @@ angular.module('starter.services', [])
 
 })
 
-.factory('Booking', function($http, $localstorage){
+.factory('Booking', function($http, $localstorage, User){
 
   return {
 
     book: function( book ){
 
-      //(req.body.type != "create" && req.body.type != "modify" && req.body.type != "cancel") ||
-      var user = $localstorage.getObject("user");
+      var user = User.get();
 
       var data = {
-  			type: book.type,
+        id : book.id,
+        type: book.type,
         empresa: book.company.NombreParam,
         ramal: book.branch.Descripcion,
         recorrido: book.way,
@@ -32,12 +32,37 @@ angular.module('starter.services', [])
         horario: book.hour,
         nombre: user.name,
         email: user.email,
-  			telefono: user.telephone
+        telefono: user.telephone
       };
 
-      console.log(JSON.stringify(data));
+      return $http.post(SERVICES_PATH + '/' + data.empresa + "/reservar", data);
+    },
 
-      return $http.post(SERVICES_PATH + '/' + book.company.NombreParam + "/reservar", data);
+    find : function(id){
+      return $localstorage.find("bookings", id);
+    },
+
+    storage : function( book ){
+      book.company = book.company.NombreParam;
+      book.branch = book.branch.Descripcion;
+      $localstorage.push('bookings', angular.copy(book) );
+    }
+
+  }
+
+})
+
+.factory('User', function($localstorage){
+
+  return {
+
+    get : function(){
+      return $localstorage.getObject("user");
+    },
+
+    validate: function(){
+      var user = this.get();
+      return user && user.name && user.email && user.telephone;
     }
   }
 
